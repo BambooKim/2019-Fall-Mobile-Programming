@@ -13,40 +13,27 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_M5107"
+            android:id="@+id/btn_stationList"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="btnMethod"
-            android:text="M5107" />
+            android:text="정류소 조회" />
         <Button
-            android:id="@+id/btn_1112"
+            android:id="@+id/btn_toIn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:onClick="btnMethod"
             android:layout_weight="1"
-            android:text="1112" />
+            android:text="사색의광장 방면" />
         <Button
-            android:id="@+id/btn_5100"
+            android:id="@+id/btn_toOut"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:onClick="btnMethod"
             android:layout_weight="1"
-            android:text="5100" />
-        <Button
-            android:id="@+id/btn_7000"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:onClick="btnMethod"
-            android:layout_weight="1"
-            android:text="7000" />
-        <Button
-            android:id="@+id/btn_9"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:onClick="btnMethod"
-            android:layout_weight="1"
-            android:text="9" />
+            android:text="서울 방면" />
+
     </LinearLayout>
 
 
@@ -63,7 +50,7 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
         </LinearLayout>
     </ScrollView>

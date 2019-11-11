@@ -22,14 +22,14 @@ import java.net.URL;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-public class StationTask extends AsyncTask<String, String, String> {
-    public final static String TAG = "StationTask";
+public class StationListTask extends AsyncTask<String, String, String> {
+    public final static String TAG = "StationListTask";
 
     ProgressDialog progressDialog;
     private Context mContext;
     private TextView textView;
 
-    public StationTask(Context context, TextView textView) {
+    public StationListTask(Context context, TextView textView) {
         mContext = context;
         this.textView = textView;
     }
