@@ -185,7 +185,7 @@ public class StationArrivalTask extends AsyncTask<String, String, String> {
 
                         textView.append(routeId + "\n");
                         textView.append(plateNo1 + " " + locationNo1 + "전 " +
-                                predictTime1 + "분 후 도착 예정" + remainSeatCnt1 + "석 남음\n");
+                                predictTime1 + "분 후 도착 예정 " + remainSeatCnt1 + "석 남음\n");
                         textView.append("도착 예정 정보 없음\n");
                         textView.append("\n");
                     }
@@ -204,10 +204,10 @@ public class StationArrivalTask extends AsyncTask<String, String, String> {
 
                     textView.append(routeId + "\n");
                     textView.append(plateNo1 + " " + locationNo1 + "전 " +
-                            predictTime1 + "분 후 도착 예정" + remainSeatCnt1 + "석 남음\n");
+                            predictTime1 + "분 후 도착 예정 " + remainSeatCnt1 + "석 남음\n");
                     Log.d(TAG, "plateNo : " + plateNo1);
                     textView.append(plateNo2 + " " + locationNo2 + "전 " +
-                            predictTime2 + "분 후 도착 예정" + remainSeatCnt2 + "석 남음\n");
+                            predictTime2 + "분 후 도착 예정 " + remainSeatCnt2 + "석 남음\n");
                     Log.d(TAG, "plateNo : " + plateNo2);
                     textView.append("\n");
                 }

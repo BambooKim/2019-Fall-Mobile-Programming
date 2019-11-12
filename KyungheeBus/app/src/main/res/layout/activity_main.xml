@@ -19,20 +19,13 @@
             android:layout_weight="1"
             android:onClick="btnMethod"
             android:text="정류소 조회" />
+
         <Button
-            android:id="@+id/btn_toIn"
+            android:id="@+id/goToStationArrival"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:onClick="btnMethod"
             android:layout_weight="1"
-            android:text="사색의광장 방면" />
-        <Button
-            android:id="@+id/btn_toOut"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:onClick="btnMethod"
-            android:layout_weight="1"
-            android:text="서울 방면" />
+            android:text="도착 정보 액티비티" />
 
     </LinearLayout>
 
@@ -52,6 +45,8 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>

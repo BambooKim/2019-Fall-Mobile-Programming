@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/stn_in_entrance"
+        android:title="경희대정문" />
+    <item
+        android:id="@+id/stn_in_foreign"
+        android:title="외국어대학" />
+    <item
+        android:id="@+id/stn_in_life"
+        android:title="생명과학대" />
+    <item
+        android:id="@+id/stn_in_plaza"
+        android:title="사색의광장(종점)" />
+    <item
+        android:id="@+id/stn_out_plaza"
+        android:title="사색의광장(기점)" />
+    <item
+        android:id="@+id/stn_out_life"
+        android:title="생명과학대.산업대학" />
+    <item
+        android:id="@+id/stn_out_phy"
+        android:title="경희대체육대학.외대" />
+    <item
+        android:id="@+id/stn_out_khu"
+        android:title="경희대학교" />
+</menu>

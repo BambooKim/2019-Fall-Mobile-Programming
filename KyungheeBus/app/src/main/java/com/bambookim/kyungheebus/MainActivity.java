@@ -2,17 +2,19 @@ package com.bambookim.kyungheebus;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     TextView text1;
+    Button goToStationArrival;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +22,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         text1 = (TextView) findViewById(R.id.textView);
+        goToStationArrival = (Button) findViewById(R.id.goToStationArrival);
+
+        goToStationArrival.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, StationArrivalActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
      public void btnMethod(View view) {
@@ -30,14 +41,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btn_stationList:
                 inflater.inflate(R.menu.menu_bus, popupMenu.getMenu());
                 popupMenu.setOnMenuItemClickListener(listener1);
-                break;
-            case R.id.btn_toIn:
-                inflater.inflate(R.menu.menu_station_to_in, popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(listener2);
-                break;
-            case R.id.btn_toOut:
-                inflater.inflate(R.menu.menu_station_to_out, popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(listener2);
                 break;
         }
 
@@ -69,42 +72,6 @@ public class MainActivity extends AppCompatActivity {
 
             StationListTask task = new StationListTask(MainActivity.this, text1);
             task.execute(routeId);
-
-            return false;
-        }
-    };
-
-    PopupMenu.OnMenuItemClickListener listener2 = new PopupMenu.OnMenuItemClickListener() {
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-            String stationId = "";
-
-            switch (item.getItemId()) {
-                case R.id.stn_in_entrance:
-
-                    break;
-                case R.id.stn_in_foreign:
-                    stationId = "228000710";
-                    break;
-                case R.id.stn_in_life:
-
-                    break;
-                case R.id.stn_in_plaza:
-
-                    break;
-                case R.id.stn_out_life:
-
-                    break;
-                case R.id.stn_out_phy:
-
-                    break;
-                case R.id.stn_out_khu:
-
-                    break;
-            }
-
-            StationArrivalTask arrivalTask = new StationArrivalTask(MainActivity.this, text1);
-            arrivalTask.execute(stationId);
 
             return false;
         }
