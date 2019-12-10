@@ -110,6 +110,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/arrivalItemLayout_5100"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="10dp"

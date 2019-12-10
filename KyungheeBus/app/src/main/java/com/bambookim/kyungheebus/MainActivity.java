@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-     public void btnMethod(View view) {
+    public void btnMethod(View view) {
         PopupMenu popupMenu = new PopupMenu(this, view);
         MenuInflater inflater = getMenuInflater();
 
@@ -42,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
                 inflater.inflate(R.menu.menu_bus, popupMenu.getMenu());
                 popupMenu.setOnMenuItemClickListener(listener1);
                 break;
+            case R.id.btnGotoAlarm:
+                Intent intent = new Intent(this, BusAlarm.class);
+                startActivity(intent);
         }
 
         popupMenu.show();

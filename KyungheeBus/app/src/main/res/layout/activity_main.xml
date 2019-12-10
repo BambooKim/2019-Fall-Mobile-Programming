@@ -30,6 +30,13 @@
     </LinearLayout>
 
 
+    <Button
+        android:id="@+id/btnGotoAlarm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="btnMethod"
+        android:text="알림 기능 관련" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
