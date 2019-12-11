@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:text="TextView"
+                android:text="도착 예정 정보 없음"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
         </LinearLayout>
 
@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:text="TextView"
+                android:text="도착 예정 정보 없음"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
         </LinearLayout>
         <LinearLayout
@@ -131,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:text="TextView"
+                android:text="도착 예정 정보 없음"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
         </LinearLayout>
         <LinearLayout
@@ -155,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:text="TextView"
+                android:text="도착 예정 정보 없음"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
         </LinearLayout>
         <LinearLayout
@@ -179,7 +179,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:text="TextView"
+                android:text="도착 예정 정보 없음"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
         </LinearLayout>
     </LinearLayout>

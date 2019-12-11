@@ -37,6 +37,18 @@
         android:onClick="btnMethod"
         android:text="알림 기능 관련" />
 
+    <Button
+        android:id="@+id/alarmnoti"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="alarmnoti" />
+
+    <Button
+        android:id="@+id/notiCancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="알람노티 해제" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
