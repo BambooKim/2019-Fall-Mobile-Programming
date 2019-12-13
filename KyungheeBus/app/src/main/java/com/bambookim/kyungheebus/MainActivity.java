@@ -60,20 +60,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btnMethod(View view) {
-        PopupMenu popupMenu = new PopupMenu(this, view);
-        MenuInflater inflater = getMenuInflater();
-
         switch (view.getId()) {
             case R.id.btn_stationList:
+                PopupMenu popupMenu = new PopupMenu(this, view);
+                MenuInflater inflater = getMenuInflater();
+
                 inflater.inflate(R.menu.menu_bus, popupMenu.getMenu());
                 popupMenu.setOnMenuItemClickListener(listener1);
+
+                popupMenu.show();
+
                 break;
             case R.id.btnGotoAlarm:
-                Intent intent = new Intent(this, BusAlarm.class);
+                Intent intent = new Intent(MainActivity.this, BusAlarm.class);
                 startActivity(intent);
-        }
 
-        popupMenu.show();
+                break;
+        }
     }
 
     PopupMenu.OnMenuItemClickListener listener1 = new PopupMenu.OnMenuItemClickListener() {

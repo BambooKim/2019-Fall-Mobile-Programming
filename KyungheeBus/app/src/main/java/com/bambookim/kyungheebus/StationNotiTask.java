@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
@@ -175,7 +176,8 @@ public class StationNotiTask extends AsyncTask<String, String, String> {
 
         builder.setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("[경희대정문-외국어대학]")
-                .setContentText(str);
+                .setContentText(str)
+                .setAutoCancel(true);
 
         Intent notificationIntent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
@@ -184,7 +186,8 @@ public class StationNotiTask extends AsyncTask<String, String, String> {
 
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            manager.createNotificationChannel(new NotificationChannel("1", "channel", NotificationManager.IMPORTANCE_HIGH));
+            manager.createNotificationChannel(
+                    new NotificationChannel("1", "channel", NotificationManager.IMPORTANCE_HIGH));
         }
 
         Notification notification = builder.build();

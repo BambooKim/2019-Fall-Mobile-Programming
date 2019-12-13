@@ -2,131 +2,189 @@ package com.bambookim.kyungheebus;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.os.Build;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TimePicker;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
+import java.util.ArrayList;
+
 
 public class BusAlarm extends AppCompatActivity {
+    private static final String TAG = "BusAlarm";
+    ListView listView;
 
-    Button button;
+    ArrayList<SampleData> alarmList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus_alarm);
 
-        final TimePicker picker = (TimePicker) findViewById(R.id.timePicker);
-        picker.setIs24HourView(true);
+        this.initializeAlarm();
 
-        SharedPreferences sharedPreferences = getSharedPreferences("daily alarm", MODE_PRIVATE);
-        long millis = sharedPreferences.getLong("nextNotify Time", Calendar.getInstance().getTimeInMillis());
+        listView = (ListView) findViewById(R.id.listView);
+        final MyAdapter myAdapter = new MyAdapter(this, alarmList);
 
-        Calendar nextNotifyTime = new GregorianCalendar();
-        nextNotifyTime.setTimeInMillis(millis);
+        listView.setAdapter(myAdapter);
 
-        Date nextDate = nextNotifyTime.getTime();
-        String date_text = new SimpleDateFormat("yyyy년 MM월 dd일 EE요일 a hh시 mm분", Locale.getDefault()).format(nextDate);
-        Toast.makeText(getApplicationContext(), "[처음 실행시] 다음 알람은 " + date_text +"으로 설정되었습니다!", Toast.LENGTH_SHORT).show();
-
-        Date currentTime = nextNotifyTime.getTime();
-        SimpleDateFormat HourFormat = new SimpleDateFormat("kk", Locale.getDefault());
-        SimpleDateFormat MinuteFormat = new SimpleDateFormat("mm", Locale.getDefault());
-
-        int pre_hour = Integer.parseInt(HourFormat.format(currentTime));
-        int pre_minute = Integer.parseInt(MinuteFormat.format(currentTime));
-
-        if (Build.VERSION.SDK_INT >= 23) {
-            picker.setHour(pre_hour);
-            picker.setMinute(pre_minute);
-        } else {
-            picker.setCurrentHour(pre_hour);
-            picker.setCurrentMinute(pre_minute);
-        }
-
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                int hour, hour_24, minute;
-                String am_pm;
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onItemClick");
+                //Toast.makeText(getApplicationContext(), "onItemClick", Toast.LENGTH_SHORT).show();
 
-                if (Build.VERSION.SDK_INT >= 23) {
-                    hour_24 = picker.getHour();
-                    minute = picker.getMinute();
-                } else {
-                    hour_24 = picker.getCurrentHour();
-                    minute = picker.getCurrentMinute();
-                }
+                SampleData data = myAdapter.getItem(position);
 
-                if (hour_24 > 12) {
-                    am_pm = "PM";
-                    hour = hour_24 - 12;
-                } else {
-                    hour = hour_24;
-                    am_pm = "AM";
-                }
+                int Id = data.getId();
 
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(System.currentTimeMillis());
-                calendar.set(Calendar.HOUR_OF_DAY, hour_24);
-                calendar.set(Calendar.MINUTE, minute);
-                calendar.set(Calendar.SECOND, 0);
+                int Hour = data.getHour();
+                int Minute = data.getMinute();
 
-                if (calendar.before(Calendar.getInstance())) {
+                boolean [] isDayOn = data.getIsDayOn();
 
-                    calendar.add(Calendar.DATE, 1);
-                }
+                int SUN = isDayOn[0] ? 1 : 0;
+                int MON = isDayOn[1] ? 1 : 0;
+                int TUE = isDayOn[2] ? 1 : 0;
+                int WED = isDayOn[3] ? 1 : 0;
+                int THUR = isDayOn[4] ? 1 : 0;
+                int FRI = isDayOn[5] ? 1 : 0;
+                int SAT = isDayOn[6] ? 1 : 0;
 
-                Date currentDateTime = calendar.getTime();
-                String date_text = new SimpleDateFormat("yyyy년 MM월 dd일 EE요일 a hh시 mm분 ",  Locale.getDefault()).format(currentDateTime);
-                Toast.makeText(getApplicationContext(), date_text + "으로 알림이 설정되었습니다!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(BusAlarm.this, TimeActivity.class);
+                intent.putExtra("Src", "modify");
+                intent.putExtra("Id", Id);
+                intent.putExtra("Hour", Hour);
+                intent.putExtra("Minute", Minute);
+                intent.putExtra("SUN", SUN);
+                intent.putExtra("MON", MON);
+                intent.putExtra("TUE", TUE);
+                intent.putExtra("WED", WED);
+                intent.putExtra("THUR", THUR);
+                intent.putExtra("FRI", FRI);
+                intent.putExtra("SAT", SAT);
 
-                SharedPreferences.Editor editor = getSharedPreferences("daily alarm", MODE_PRIVATE).edit();
-                editor.putLong("nextNotifyTime", (long) calendar.getTimeInMillis());
-                editor.apply();
-
-                diaryNotification(calendar);
+                startActivityForResult(intent, 101);
             }
         });
     }
 
-    void diaryNotification(Calendar calendar) {
-        PackageManager pm = this.getPackageManager();
-        ComponentName receiver = new ComponentName(this, DeviceBootReceiver.class);
-        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-        if (alarmManager != null) {
+        this.initializeAlarm();
 
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    5000, pendingIntent);
+        final MyAdapter myAdapter = new MyAdapter(this, alarmList);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        listView.setAdapter(myAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onItemClick");
+                //Toast.makeText(getApplicationContext(), "onItemClick", Toast.LENGTH_SHORT).show();
+
+                SampleData data = myAdapter.getItem(position);
+
+                int Id = data.getId();
+
+                int Hour = data.getHour();
+                int Minute = data.getMinute();
+
+                boolean [] isDayOn = data.getIsDayOn();
+
+                int SUN = isDayOn[0] ? 1 : 0;
+                int MON = isDayOn[1] ? 1 : 0;
+                int TUE = isDayOn[2] ? 1 : 0;
+                int WED = isDayOn[3] ? 1 : 0;
+                int THUR = isDayOn[4] ? 1 : 0;
+                int FRI = isDayOn[5] ? 1 : 0;
+                int SAT = isDayOn[6] ? 1 : 0;
+
+                Intent intent = new Intent(BusAlarm.this, TimeActivity.class);
+                intent.putExtra("Src", "modify");
+                intent.putExtra("Id", Id);
+                intent.putExtra("Hour", Hour);
+                intent.putExtra("Minute", Minute);
+                intent.putExtra("SUN", SUN);
+                intent.putExtra("MON", MON);
+                intent.putExtra("TUE", TUE);
+                intent.putExtra("WED", WED);
+                intent.putExtra("THUR", THUR);
+                intent.putExtra("FRI", FRI);
+                intent.putExtra("SAT", SAT);
+
+                startActivityForResult(intent, 101);
             }
-        }
+        });
 
-        // 부팅 후 실행되는 리시버 사용가능하게 설정
-        pm.setComponentEnabledSetting(receiver,
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(BusAlarm.this, "asdf", Toast.LENGTH_SHORT).show();
+
+                return false;
+            }
+        });
+    }
+
+    public void mOnClick(View view) {
+        switch (view.getId()) {
+            case R.id.addAlarm:
+                Intent intent = new Intent(BusAlarm.this, TimeActivity.class);
+                intent.putExtra("Src", "new");
+                startActivity(intent);
+                break;
+            case R.id.editAlarm:
+                break;
+        }
+    }
+
+    public void initializeAlarm() {
+        alarmList = new ArrayList<SampleData>();
+
+        DBHelper helper = new DBHelper(this);
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        String sql = "SELECT * FROM AlarmList";
+
+        Cursor c = db.rawQuery(sql, null);
+
+        while (c.moveToNext()) {
+            int Id_pos = c.getColumnIndex("Id");
+            int Hour_pos = c.getColumnIndex("Hour");
+            int Minute_pos = c.getColumnIndex("Minute");
+            int SUN_pos = c.getColumnIndex("SUN");
+            int MON_pos = c.getColumnIndex("MON");
+            int TUE_pos = c.getColumnIndex("TUE");
+            int WED_pos = c.getColumnIndex("WED");
+            int THUR_pos = c.getColumnIndex("THUR");
+            int FRI_pos = c.getColumnIndex("FRI");
+            int SAT_pos = c.getColumnIndex("SAT");
+            int isON_pos = c.getColumnIndex("isON");
+
+            int Id = c.getInt(Id_pos);
+            int Hour = c.getInt(Hour_pos);
+            int Minute = c.getInt(Minute_pos);
+            int SUN = c.getInt(SUN_pos);
+            int MON = c.getInt(MON_pos);
+            int TUE = c.getInt(TUE_pos);
+            int WED = c.getInt(WED_pos);
+            int THUR = c.getInt(THUR_pos);
+            int FRI = c.getInt(FRI_pos);
+            int SAT = c.getInt(SAT_pos);
+            int isON = c.getInt(isON_pos);
+
+            alarmList.add(new SampleData(Id, Hour, Minute, isON != 0,
+                    SUN != 0, MON != 0, TUE != 0, WED != 0, THUR != 0, FRI != 0, SAT != 0));
+        }
     }
 }
+
