@@ -11,27 +11,11 @@ import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.sql.Time;
 import java.util.Calendar;
-import java.util.Date;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
     private static final String TAG = "AlarmReceiver";
-
-    /*
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        // 알람 스타트
-        AlarmUtils.getInstance().startThirtySecondAlarm(context);
-
-        StationNotiTask task = new StationNotiTask(context);
-        task.execute();
-
-        Log.d(getClass().getName(),"time second : " + new Date().toString());
-    }
-
-     */
 
     @Override
     public void onReceive(Context context, Intent intent) {

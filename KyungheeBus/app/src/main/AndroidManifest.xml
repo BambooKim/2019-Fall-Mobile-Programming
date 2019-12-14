@@ -22,16 +22,7 @@
             </intent-filter>
         </activity>
         <receiver
-            android:name=".MyReceiver"
-            android:enabled="true"
-            android:exported="true"></receiver>
-
-        <receiver
             android:name=".BusNotiReceiver"
-            android:enabled="true"
-            android:exported="true" />
-        <receiver
-            android:name=".DeviceBootReceiver"
             android:enabled="true"
             android:exported="true" />
         <receiver

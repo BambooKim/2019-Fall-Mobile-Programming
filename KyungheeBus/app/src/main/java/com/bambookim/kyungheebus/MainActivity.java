@@ -1,10 +1,5 @@
 package com.bambookim.kyungheebus;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuInflater;
@@ -13,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,28 +32,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.alarmnoti).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlarmUtils.getInstance().startThirtySecondAlarm(MainActivity.this);
-            }
-        });
-
-        findViewById(R.id.notiCancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-                Intent intent = new Intent(MainActivity.this, AlarmReceiver.class);
-                PendingIntent sender = PendingIntent.getBroadcast(MainActivity.this, 0, intent,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
-
-                if (sender != null) {
-                    alarmManager.cancel(sender);
-                    sender.cancel();
-                }
-            }
-        });
     }
 
     public void btnMethod(View view) {
