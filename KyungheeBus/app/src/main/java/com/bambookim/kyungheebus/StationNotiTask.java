@@ -173,12 +173,12 @@ public class StationNotiTask extends AsyncTask<String, String, String> {
     public void showNotification(Context context, String str) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "1");
 
-        builder.setSmallIcon(R.mipmap.ic_launcher)
+        builder.setSmallIcon(R.mipmap.ic_launcher_bus)
                 .setContentTitle("[경희대정문-외국어대학]")
                 .setContentText(str)
                 .setAutoCancel(true);
 
-        Intent notificationIntent = new Intent(context, MainActivity.class);
+        Intent notificationIntent = new Intent(context, StationArrivalActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
         builder.setContentIntent(pendingIntent);

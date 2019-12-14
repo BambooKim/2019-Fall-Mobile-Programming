@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -78,7 +77,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 if (Id == reqCode) {
                     if (DAY != 0) {
                         Log.d(TAG, TimeActivity.count + "번째 반복");
-                        Toast.makeText(context, TimeActivity.count + " : Hello World", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(context, TimeActivity.count + " : Hello World", Toast.LENGTH_SHORT).show();
                         StationNotiTask task = new StationNotiTask(context);
                         task.execute();
 
@@ -91,7 +90,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             }
         } else {
             Log.d(TAG, TimeActivity.count + "번째 반복");
-            Toast.makeText(context, TimeActivity.count + " : Hello World", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(context, TimeActivity.count + " : Hello World", Toast.LENGTH_SHORT).show();
             StationNotiTask task = new StationNotiTask(context);
             task.execute();
 

@@ -196,8 +196,8 @@ public class StationArrivalTask2 extends AsyncTask<String, String, String> {
                                 final int predictTime1 = Integer.parseInt(predictTime1_tag.getTextContent());
                                 final int remainSeatCnt1 = Integer.parseInt(remainSeatCnt1_tag.getTextContent());
 
-                                arrival_info.append(locationNo1 + "전 " +
-                                        predictTime1 + "분 후 도착 예정 " + remainSeatCnt1 + "석 남음\n");
+                                arrival_info.append(locationNo1 + " 정류장 전 " +
+                                        predictTime1 + "분 후 도착 예정\n");
                                 arrival_info.append("도착 예정 정보 없음");
                             }
                         } else {                    // 평상시
@@ -213,10 +213,10 @@ public class StationArrivalTask2 extends AsyncTask<String, String, String> {
                             final int predictTime1 = Integer.parseInt(predictTime1_tag.getTextContent());
                             final int remainSeatCnt1 = Integer.parseInt(remainSeatCnt1_tag.getTextContent());
 
-                            arrival_info.append(locationNo1 + "전 " +
-                                    predictTime1 + "분 후 도착 예정 " + remainSeatCnt1 + "석 남음\n");
-                            arrival_info.append(locationNo2 + "전 " +
-                                    predictTime2 + "분 후 도착 예정 " + remainSeatCnt2 + "석 남음");
+                            arrival_info.append(locationNo1 + " 정류장 전 " +
+                                    predictTime1 + "분 후 도착 예정\n");
+                            arrival_info.append(locationNo2 + " 정류장 전 " +
+                                    predictTime2 + "분 후 도착 예정");
                         }
                         break;
                     }

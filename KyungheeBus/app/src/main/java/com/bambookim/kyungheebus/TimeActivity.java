@@ -8,10 +8,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TimePicker;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
@@ -29,9 +31,21 @@ public class TimeActivity extends AppCompatActivity {
     int Id;
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        finish();
+        overridePendingTransition(R.anim.not_move_activity, R.anim.leftout_activity);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("알람 설정");
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         timePicker = (TimePicker) findViewById(R.id.timePicker);
         timePicker.setIs24HourView(true);
@@ -102,6 +116,18 @@ public class TimeActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                overridePendingTransition(R.anim.not_move_activity, R.anim.leftout_activity);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     public void mOnClick(View view) {
         switch (view.getId()) {
             case R.id.alarmSave:
@@ -116,12 +142,6 @@ public class TimeActivity extends AppCompatActivity {
                     minute = timePicker.getCurrentMinute();
                 }
 
-
-
-
-
-
-
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(System.currentTimeMillis());
                 calendar.set(Calendar.HOUR_OF_DAY, hour);
@@ -131,13 +151,6 @@ public class TimeActivity extends AppCompatActivity {
                 if (calendar.before(Calendar.getInstance())) {
                     calendar.add(Calendar.DATE, 1);
                 }
-
-
-
-
-
-
-
 
                 int _sun, _mon, _tue, _wed, _thur, _fri, _sat;
 
@@ -222,10 +235,14 @@ public class TimeActivity extends AppCompatActivity {
                 db.close();
 
                 finish();
+                finish();
+                overridePendingTransition(R.anim.not_move_activity, R.anim.leftout_activity);
 
                 break;
             case R.id.alarmCancel:
                 finish();
+                overridePendingTransition(R.anim.not_move_activity, R.anim.leftout_activity);
+
                 break;
         }
     }
@@ -235,11 +252,6 @@ public class TimeActivity extends AppCompatActivity {
 
     public static void initializeAlarm(Context context, int reqCode, Calendar calendar) {
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
-//        Intent cancelIntent = new Intent(context, AlarmReceiver.class);
-//        PendingIntent cancelPending = PendingIntent.getBroadcast(context, reqCode, cancelIntent,
-//                PendingIntent.FLAG_UPDATE_CURRENT);
-
 
         Intent intent = new Intent(context, AlarmReceiver.class);
         intent.putExtra("Id", reqCode);
@@ -289,7 +301,5 @@ public class TimeActivity extends AppCompatActivity {
             alarmManager.cancel(sender);
             sender.cancel();
         }
-
-        count = 0;
     }
 }

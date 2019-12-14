@@ -8,7 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -31,7 +31,7 @@ public class StationArrivalFragment extends Fragment {
 
     private String stationId;
 
-    private Button before, next;
+    private ImageButton before, next;
 
     LinkedHashMap<String, String> stationMap;
 
@@ -64,8 +64,8 @@ public class StationArrivalFragment extends Fragment {
         arrival_9 = (TextView) view.findViewById(R.id.listArrival_9);
         direction = (TextView) view.findViewById(R.id.direction);
 
-        before = (Button) view.findViewById(R.id.before);
-        next = (Button) view.findViewById(R.id.next);
+        before = (ImageButton) view.findViewById(R.id.before);
+        next = (ImageButton) view.findViewById(R.id.next);
 
         stationName.setText(stationMap.get(stationId));
 
@@ -75,7 +75,7 @@ public class StationArrivalFragment extends Fragment {
 
         startTask(stationId);
 
-        Button button = view.findViewById(R.id.arrival_refresh);
+        ImageButton button = view.findViewById(R.id.arrival_refresh);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

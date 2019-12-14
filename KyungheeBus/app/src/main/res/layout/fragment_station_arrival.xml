@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context=".StationArrivalFragment">
 
 
@@ -11,17 +13,20 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <LinearLayout
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/before"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="이전" />
+            <ImageButton
+                android:id="@+id/before"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_arrow_back_black_18dp"
+                android:background="#ffffff"
+                android:text="이전" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -47,11 +52,14 @@
         </LinearLayout>
 
 
-        <Button
-            android:id="@+id/next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="다음" />
+            <ImageButton
+                android:id="@+id/next"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+                android:background="#ffffff"
+                android:src="@drawable/ic_arrow_forward_black_18dp"
+                android:text="다음" />
     </LinearLayout>
 
     <LinearLayout
@@ -184,11 +192,15 @@
         </LinearLayout>
     </LinearLayout>
 
-        <Button
+        <ImageButton
             android:id="@+id/arrival_refresh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="74dp"
+            android:layout_height="65dp"
             android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+            android:background="#ffffff"
+            android:src="@drawable/ic_refresh_black_18dp"
             android:text="새로고침" />
+
     </LinearLayout>
 </FrameLayout>

@@ -5,11 +5,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -22,10 +25,21 @@ public class BusAlarm extends AppCompatActivity {
     ArrayList<SampleData> alarmList;
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.not_move_activity, R.anim.leftout_activity);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus_alarm);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("버스 도착 알림 설정");
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        //actionBar.set
         this.initializeAlarm();
 
         listView = (ListView) findViewById(R.id.listView);
@@ -69,11 +83,38 @@ public class BusAlarm extends AppCompatActivity {
                 intent.putExtra("FRI", FRI);
                 intent.putExtra("SAT", SAT);
 
-                startActivityForResult(intent, 101);
+                startActivity(intent);
+                overridePendingTransition(R.anim.leftin_activity, R.anim.not_move_activity);
             }
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_bus_alarm, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_btn_addAlarm:
+                Intent intent = new Intent(BusAlarm.this, TimeActivity.class);
+                intent.putExtra("Src", "new");
+                startActivity(intent);
+                overridePendingTransition(R.anim.leftin_activity, R.anim.not_move_activity);
+                break;
+            case R.id.action_btn_editAlarm:
+                break;
+            case android.R.id.home:
+                finish();
+                overridePendingTransition(R.anim.not_move_activity, R.anim.leftout_activity);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onResume() {
@@ -121,7 +162,8 @@ public class BusAlarm extends AppCompatActivity {
                 intent.putExtra("FRI", FRI);
                 intent.putExtra("SAT", SAT);
 
-                startActivityForResult(intent, 101);
+                startActivity(intent);
+                overridePendingTransition(R.anim.leftin_activity, R.anim.not_move_activity);
             }
         });
 
@@ -133,18 +175,6 @@ public class BusAlarm extends AppCompatActivity {
                 return false;
             }
         });
-    }
-
-    public void mOnClick(View view) {
-        switch (view.getId()) {
-            case R.id.addAlarm:
-                Intent intent = new Intent(BusAlarm.this, TimeActivity.class);
-                intent.putExtra("Src", "new");
-                startActivity(intent);
-                break;
-            case R.id.editAlarm:
-                break;
-        }
     }
 
     public void initializeAlarm() {
