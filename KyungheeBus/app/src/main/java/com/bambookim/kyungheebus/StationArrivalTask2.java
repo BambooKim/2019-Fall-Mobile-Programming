@@ -3,7 +3,6 @@ package com.bambookim.kyungheebus;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.TextView;
 
 import org.w3c.dom.Document;

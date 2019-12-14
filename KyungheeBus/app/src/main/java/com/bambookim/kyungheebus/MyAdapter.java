@@ -1,6 +1,9 @@
 package com.bambookim.kyungheebus;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -12,6 +15,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MyAdapter extends BaseAdapter {
 
@@ -78,6 +82,19 @@ public class MyAdapter extends BaseAdapter {
                             Integer.toString(isChecked ? 1 : 0),
                             Integer.toString(Id)
                     };
+
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(System.currentTimeMillis());
+                    calendar.set(Calendar.HOUR_OF_DAY, sample.get(position).getHour());
+                    calendar.set(Calendar.MINUTE, sample.get(position).getMinute());
+                    calendar.set(Calendar.SECOND, 0);
+
+                    if (calendar.before(Calendar.getInstance())) {
+                        calendar.add(Calendar.DATE, 1);
+                    }
+
+                    TimeActivity.initializeAlarm(context, Id, calendar);
+
                 } else {
                     sql = "UPDATE AlarmList " +
                             "SET isON = ?" +
@@ -87,6 +104,8 @@ public class MyAdapter extends BaseAdapter {
                             Integer.toString(isChecked ? 1 : 0),
                             Integer.toString(Id)
                     };
+
+                    TimeActivity.switchOffAlarm(context, Id);
                 }
 
                 db.execSQL(sql, arg);
@@ -98,7 +117,21 @@ public class MyAdapter extends BaseAdapter {
         hour = sample.get(position).getHour();
         minute = sample.get(position).getMinute();
 
-        String str = hour + ":" + minute;
+        String _hour, _minute;
+
+        if (hour < 10) {
+            _hour = "0" + hour;
+        } else {
+            _hour = Integer.toString(hour);
+        }
+
+        if (minute < 10) {
+            _minute = "0" + minute;
+        } else {
+            _minute = Integer.toString(minute);
+        }
+
+        String str = _hour + ":" + _minute;
 
         time.setText(str);
 

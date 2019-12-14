@@ -16,17 +16,15 @@ public class AlarmUtils {
         return _instance;
     }
 
-    public void startThirtySecondAlram(Context context) {
-        // AlarmOneSecondBroadcastReceiver 초기화
+    public void startThirtySecondAlarm(Context context) {
         Intent alarmIntent = new Intent(context, AlarmReceiver.class);
         alarmIntent.putExtra("name","ThirtySecond");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
 
-        // 1초 뒤에 AlarmOneMinuteBroadcastReceiver 호출 한다.
-        startAlram(context, pendingIntent, THIRTY_SECOND);
+        startAlarm(context, pendingIntent, THIRTY_SECOND);
     }
 
-    private void startAlram(Context context, PendingIntent pendingIntent, int delay) {
+    private void startAlarm(Context context, PendingIntent pendingIntent, int delay) {
 
         // AlarmManager 호출
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.alarmnoti).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlarmUtils.getInstance().startThirtySecondAlram(MainActivity.this);
+                AlarmUtils.getInstance().startThirtySecondAlarm(MainActivity.this);
             }
         });
 
