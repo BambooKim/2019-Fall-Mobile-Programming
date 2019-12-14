@@ -11,20 +11,25 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".BusAlarm"
-            android:parentActivityName=".StationArrivalActivity" />
-        <activity
-            android:name=".TimeActivity"
-            android:parentActivityName=".BusAlarm"/>
-        <activity android:name=".BusLocationActivity" />
-        <activity android:name=".StationArrivalActivity">
+            android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".BusAlarm"
+            android:parentActivityName=".StationArrivalActivity" />
+        <activity
+            android:name=".TimeActivity"
+            android:parentActivityName=".BusAlarm" />
+        <activity android:name=".BusLocationActivity" />
+        <activity android:name=".StationArrivalActivity">
+
+        </activity>
         <activity android:name=".MainActivity" />
+
         <receiver
             android:name=".AlarmReceiver"
             android:enabled="true"
@@ -34,10 +39,10 @@
             </intent-filter>
         </receiver>
     </application>
-    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
 </manifest>
